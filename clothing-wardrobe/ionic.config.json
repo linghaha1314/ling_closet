@@ -1,0 +1,7 @@
+{
+  "name": "clothing-wardrobe",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

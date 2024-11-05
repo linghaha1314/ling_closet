@@ -1,0 +1,24 @@
+<!-- src/app/wardrobe/wardrobe.page.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>衣物橱窗</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openAddModal()">添加衣物</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of clothingItems">
+      <ion-thumbnail slot="start">
+        <img [src]="item.image" />
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ item.name }}</h2>
+        <p>{{ item.type }} | {{ item.color }} | {{ item.size }}</p>
+      </ion-label>
+      <ion-button color="danger" (click)="deleteItem(item.id)">删除</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
