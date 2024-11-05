@@ -1,7 +1,6 @@
-<!-- src/app/components/add-clothing-item/add-clothing-item.component.html -->
 <ion-header>
   <ion-toolbar>
-    <ion-title>添加衣物</ion-title>
+    <ion-title>修改衣物</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="closeModal()">关闭</ion-button>
     </ion-buttons>
@@ -9,36 +8,36 @@
 </ion-header>
 
 <ion-content>
-  <form (submit)="addClothingItem()">
+  <form (submit)="editClothingItem()">
     <ion-item>
       <ion-label position="stacked">衣物名称</ion-label>
-      <ion-input [(ngModel)]="newItem.name" name="name"></ion-input>
+      <ion-input [(ngModel)]="editedItem.name" name="name"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">类型</ion-label>
-      <ion-input [(ngModel)]="newItem.type" name="type"></ion-input>
+      <ion-input [(ngModel)]="editedItem.type" name="type"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">颜色</ion-label>
-      <ion-input [(ngModel)]="newItem.color" name="color"></ion-input>
+      <ion-input [(ngModel)]="editedItem.color" name="color"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">尺码</ion-label>
-      <ion-input [(ngModel)]="newItem.size" name="size"></ion-input>
+      <ion-input [(ngModel)]="editedItem.size" name="size"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">图片路径</ion-label>
-      <ion-input [(ngModel)]="newItem.image" name="image"></ion-input>
+      <ion-input [(ngModel)]="editedItem.image" name="image"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">购买时间</ion-label>
       <ion-datetime-button datetime="datetime"></ion-datetime-button>
       <ion-modal [keepContentsMounted]="true">
         <ng-template>
-          <ion-datetime id="datetime" (ionChange)="dateFn($event)"></ion-datetime>
+          <ion-datetime [value]="editedItem.created" id="datetime" (ionChange)="dateFn($event)"></ion-datetime>
         </ng-template>
       </ion-modal>
     </ion-item>
-    <ion-button expand="full" type="submit">添加</ion-button>
+    <ion-button expand="full" type="submit">保存修改</ion-button>
   </form>
 </ion-content>

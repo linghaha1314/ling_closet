@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { DexieService, ClothingItem } from '../DexieService';
 import { ModalController } from '@ionic/angular';
 import {AddClothingItemComponent} from "../components/add-clothing-item/add-clothing-item.component";
+import { EditClothingItemComponent } from '../components/edit-clothing-item/edit-clothing-item.component';
 
 @Component({
   selector: 'app-wardrobe',
@@ -35,9 +36,18 @@ export class WardrobePage implements OnInit {
     });
     return await modal.present();
   }
-
+  async openEditModal(clothingItem: ClothingItem) {
+    const modal = await this.modalController.create({
+      component: EditClothingItemComponent as any,
+      componentProps: {clothingItem: { ...clothingItem }},
+    });
+    modal.onDidDismiss().then(() => {
+      this.loadClothingItems();
+    });
+    return await modal.present();
+  }
   async deleteItem(id: any) {
     await this.dexieService.deleteClothingItem(id);
-    this.loadClothingItems();
+    await this.loadClothingItems();
   }
 }

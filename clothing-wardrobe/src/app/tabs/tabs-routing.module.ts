@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import {WardrobePageModule} from "../wardrobe/wardrobe.module";
 
 const routes: Routes = [
   {
@@ -9,7 +10,7 @@ const routes: Routes = [
     children: [
       {
         path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        loadChildren: () => import('../wardrobe/wardrobe.module').then(m => m.WardrobePageModule)
       },
       {
         path: 'tab2',

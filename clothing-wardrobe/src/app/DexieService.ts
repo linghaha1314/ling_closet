@@ -9,6 +9,7 @@ export interface ClothingItem {
   color: string;
   size: string;
   image: string; // 用于存储图片路径或 Base64
+  created: string; // 用于存储图片路径或 Base64
 }
 
 @Injectable({
@@ -20,13 +21,18 @@ export class DexieService extends Dexie {
   constructor() {
     super('ClothingDatabase');
     this.version(1).stores({
-      clothingItems: '++id, name, type, color, size'
+      clothingItems: '++id, name, type, color, size, created'
     });
   }
 
 // 添加新衣物
   async addClothingItem(item: ClothingItem) {
     return await this.clothingItems.add(item);
+  }
+
+  // 添加新衣物
+  async updateClothingItem(id: number, updatedItem: ClothingItem) {
+    return await this.clothingItems.update(id, updatedItem);
   }
 
 // 获取所有衣物

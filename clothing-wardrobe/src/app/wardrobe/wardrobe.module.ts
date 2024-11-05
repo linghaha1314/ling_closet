@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { WardrobePageRoutingModule } from './wardrobe-routing.module';
 import { AddClothingItemComponent } from '../components/add-clothing-item/add-clothing-item.component';
+import { EditClothingItemComponent } from '../components/edit-clothing-item/edit-clothing-item.component';
 import { WardrobePage } from './wardrobe.page';
 
 @NgModule({
@@ -15,6 +16,6 @@ import { WardrobePage } from './wardrobe.page';
     IonicModule,
     WardrobePageRoutingModule
   ],
-  declarations: [WardrobePage, AddClothingItemComponent]
+  declarations: [WardrobePage, AddClothingItemComponent, EditClothingItemComponent]
 })
 export class WardrobePageModule {}
