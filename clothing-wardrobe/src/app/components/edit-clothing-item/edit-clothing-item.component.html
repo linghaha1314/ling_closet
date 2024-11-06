@@ -15,19 +15,35 @@
     </ion-item>
     <ion-item>
       <ion-label position="stacked">类型</ion-label>
-      <ion-input [(ngModel)]="editedItem.type" name="type"></ion-input>
+      <ion-input [(ngModel)]="editedItem.type" name="type" id="open-modal"></ion-input>
+      <!--      <ion-button id="open-modal">Open modal</ion-button>-->
     </ion-item>
+    <ion-modal #modal trigger="open-modal" [isOpen]="false" (didDismiss)="onDidDismiss($event)">
+      <ng-template>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="modal.dismiss(null, 'cancel')">取消</ion-button>
+          </ion-buttons>
+          <ion-buttons slot="end">
+            <ion-button (click)="modal.dismiss(editedItem.type, 'confirm')">确定</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-picker>
+          <ion-picker-column [value]="editedItem.type" (ionChange)="onIonChange($event)">
+            <ion-picker-column-option value="" disabled="true">--</ion-picker-column-option>
+            <ion-picker-column-option value="春秋装">春秋装</ion-picker-column-option>
+            <ion-picker-column-option value="冬装">冬装</ion-picker-column-option>
+            <ion-picker-column-option value="夏装">夏装</ion-picker-column-option>
+          </ion-picker-column>
+        </ion-picker>
+      </ng-template>
+    </ion-modal>
     <ion-item>
-      <ion-label position="stacked">颜色</ion-label>
-      <ion-input [(ngModel)]="editedItem.color" name="color"></ion-input>
+      <ion-label position="stacked">图片</ion-label>
+      <input type="file" (change)="onFileSelected($event)" accept="image/*">
     </ion-item>
-    <ion-item>
-      <ion-label position="stacked">尺码</ion-label>
-      <ion-input [(ngModel)]="editedItem.size" name="size"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">图片路径</ion-label>
-      <ion-input [(ngModel)]="editedItem.image" name="image"></ion-input>
+    <ion-item *ngIf="editedItem.image">
+      <img [src]="editedItem.image" alt="Clothing Image" style="max-width: 100%; max-height: 200px;" />
     </ion-item>
     <ion-item>
       <ion-label position="stacked">购买时间</ion-label>

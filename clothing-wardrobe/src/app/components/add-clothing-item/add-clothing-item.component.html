@@ -11,34 +11,50 @@
 <ion-content>
   <form (submit)="addClothingItem()">
     <ion-item>
-      <ion-label position="stacked">衣物名称</ion-label>
+      <ion-label position="stacked">名称</ion-label>
       <ion-input [(ngModel)]="newItem.name" name="name"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">类型</ion-label>
-      <ion-input [(ngModel)]="newItem.type" name="type"></ion-input>
+      <ion-input [(ngModel)]="newItem.type" name="type" id="open-modal"></ion-input>
+<!--      <ion-button id="open-modal">Open modal</ion-button>-->
     </ion-item>
+    <ion-modal #modal trigger="open-modal" [isOpen]="false" (didDismiss)="onDidDismiss($event)">
+      <ng-template>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="modal.dismiss(null, 'cancel')">取消</ion-button>
+          </ion-buttons>
+          <ion-buttons slot="end">
+            <ion-button (click)="modal.dismiss(newItem.type, 'confirm')">确定</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-picker>
+          <ion-picker-column [value]="newItem.type" (ionChange)="onIonChange($event)">
+            <ion-picker-column-option value="" disabled="true">--</ion-picker-column-option>
+            <ion-picker-column-option value="春秋装">春秋装</ion-picker-column-option>
+            <ion-picker-column-option value="冬装">冬装</ion-picker-column-option>
+            <ion-picker-column-option value="夏装">夏装</ion-picker-column-option>
+          </ion-picker-column>
+        </ion-picker>
+      </ng-template>
+    </ion-modal>
     <ion-item>
-      <ion-label position="stacked">颜色</ion-label>
-      <ion-input [(ngModel)]="newItem.color" name="color"></ion-input>
+      <ion-label position="stacked">图片</ion-label>
+      <input type="file" (change)="onFileSelected($event)" accept="image/*">
     </ion-item>
-    <ion-item>
-      <ion-label position="stacked">尺码</ion-label>
-      <ion-input [(ngModel)]="newItem.size" name="size"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">图片路径</ion-label>
-      <ion-input [(ngModel)]="newItem.image" name="image"></ion-input>
+    <ion-item *ngIf="newItem.image">
+      <img [src]="newItem.image" alt="Clothing Image" style="max-width: 100%; max-height: 200px;" />
     </ion-item>
     <ion-item>
       <ion-label position="stacked">购买时间</ion-label>
       <ion-datetime-button datetime="datetime"></ion-datetime-button>
-      <ion-modal [keepContentsMounted]="true">
-        <ng-template>
-          <ion-datetime id="datetime" (ionChange)="dateFn($event)"></ion-datetime>
-        </ng-template>
-      </ion-modal>
     </ion-item>
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime id="datetime" (ionChange)="dateFn($event)"></ion-datetime>
+      </ng-template>
+    </ion-modal>
     <ion-button expand="full" type="submit">添加</ion-button>
   </form>
 </ion-content>

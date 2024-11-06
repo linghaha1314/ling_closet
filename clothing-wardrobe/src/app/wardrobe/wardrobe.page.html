@@ -12,11 +12,11 @@
   <ion-list>
     <ion-item *ngFor="let item of clothingItems">
       <ion-thumbnail slot="start">
-        <img [src]="item.image" />
+        <img [src]="item.image" (error)="onImageError($event)" />
       </ion-thumbnail>
       <ion-label>
         <h2>{{ item.name }}</h2>
-        <p>{{ item.type }} | {{ item.color }} | {{ item.size }}</p>
+        <p>{{ item.type }}</p>
         <p>{{ item.created }}</p>
       </ion-label>
       <ion-button color="warning" (click)="openEditModal(item)">编辑</ion-button>

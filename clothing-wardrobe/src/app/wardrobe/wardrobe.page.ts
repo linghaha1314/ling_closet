@@ -12,7 +12,7 @@ import { EditClothingItemComponent } from '../components/edit-clothing-item/edit
 })
 export class WardrobePage implements OnInit {
   clothingItems: ClothingItem[] = [];
-
+  defaultImage = 'assets/icon/logo.png'
   constructor(
     private dexieService: DexieService,
     private modalController: ModalController
@@ -49,5 +49,10 @@ export class WardrobePage implements OnInit {
   async deleteItem(id: any) {
     await this.dexieService.deleteClothingItem(id);
     await this.loadClothingItems();
+  }
+  // 处理图片加载错误，设置默认图片
+  onImageError(event: Event) {
+    const imgElement = event.target as HTMLImageElement;
+    imgElement.src = this.defaultImage; // 设置默认图片路径
   }
 }
