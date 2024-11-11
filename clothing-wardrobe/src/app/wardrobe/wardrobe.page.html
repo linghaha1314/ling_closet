@@ -10,6 +10,42 @@
 
 <ion-content>
   <ion-list>
+    <ion-item>
+      <ion-button style="width: 100px;margin-right: 24px;" color="warning" (click)="exportToExcel()">导出excel</ion-button>
+      <div style="width: 40vw">
+        <form id="myForm">
+          <input type="file" (change)="onFileChange($event)" accept="image/*">
+          <ion-button id="resetButton" type="reset" style="width: 100px" color="warning">重置</ion-button>
+        </form>
+      </div>
+      <ion-modal [isOpen]="isModalOpen" (didDismiss)="onDidDismiss($event)">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-buttons slot="start">
+                <ion-button (click)="isModalOpen=false">取消</ion-button>
+              </ion-buttons>
+              <ion-title>导入列表</ion-title>
+              <ion-buttons slot="end">
+                <ion-button (click)="saveImportedData()">上传</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-list>
+            <ion-item *ngFor="let item of upData">
+              <ion-thumbnail slot="start">
+                <img [src]="item.image" (error)="onImageError($event)" />
+              </ion-thumbnail>
+              <ion-label>
+                <h2>{{ item.name }}</h2>
+                <p>{{ item.type }}</p>
+                <p>{{ item.created }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ng-template>
+      </ion-modal>
+    </ion-item>
     <ion-item *ngFor="let item of clothingItems">
       <ion-thumbnail slot="start">
         <img [src]="item.image" (error)="onImageError($event)" />
